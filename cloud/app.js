@@ -3,7 +3,6 @@ var express = require('express');
 var app = express();
 var crypto = require('crypto');
 var md5 = crypto.createHash('md5');
-var password = md5.update(‘abcdefg’).digest(‘base64’);
 
 var myLog=require('cloud/mylog.js');
 var myUser=require('cloud/myuser.js');
