@@ -1,4 +1,5 @@
 var app = require("cloud/app.js");
+var moment = require('moment');
 var crypto = require('crypto');
 var md5 = crypto.createHash('md5');
 
@@ -18,7 +19,7 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone=? and createdAt = ?",[phone,new Date().Format('YYYY-MM-dd')],{
+    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone=? and createdAt = ?",[phone,moment(new Date()).Format('YYYY-MM-dd')],{
         success: function(result){
             if(result.count > 3){
                 res.success({
