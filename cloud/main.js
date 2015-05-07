@@ -19,15 +19,15 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt < date('"+moment().endOf('day').format("yyyy-MM-ddTHH:MM:SS.MMMMZ")+"')",{
+    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt < date('2015-05-07:23:59:59:999Z')",{
         success: function(result){
             if(result.count > 3){
                 res.success({
-                    'result':moment().endOf('day')
+                    'result':moment().endOf('day').format("yyyy-MM-ddTHH:MM:SS.MMMMZ")
                 })
             }else{
                 res.success({
-                    'result':moment().endOf('day')
+                    'result':moment().endOf('day').format("yyyy-MM-ddTHH:MM:SS.MMMMZ")
                 })
 //                AV.User.requestMobilePhoneVerify(phone).then(function(){
 //                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
