@@ -30,11 +30,11 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                 })
             }else{
                 AV.User.requestMobilePhoneVerify(phone).then(function(){
-                    var phoneCode = new PhoneCode()
-                    phoneCode.save({
+                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
+                    phoneAuthenticationCode.save({
                        phone: phone
                     },{
-                        success: function(gameScore) {
+                        success: function(phoneAuthenticationCode) {
                             res.render('data', {
                                 'result':'success'
                             })
