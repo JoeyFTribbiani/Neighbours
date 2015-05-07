@@ -18,39 +18,35 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    var query = new AV.Query(PhoneAuthenticationCode);
-    query.equalTo('Date(createdAt)',new Date().Format("yyyy-MM-dd"))
-    query.equalTo('phone',phone)
-    query.count({
-        success: function(count){
-            if(count > 3){
-                res.render('data', {
-                    'result':'error',
-                    'msg': "今日请求次数已达上限"
-                })
+    AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode where phone='+phone+' and createdAt = date(Now())', {
+        success: function(result){
+            if(result.count < 3){
+                return {
+                    'result':result.count
+                }
             }else{
-                AV.User.requestMobilePhoneVerify(phone).then(function(){
-                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
-                    phoneAuthenticationCode.save({
-                       "phone": phone
-                    },{
-                        success: function(phoneAuthenticationCode) {
-                            return {
-                                'result':'success'
-                            }
-                        },error: function(phoneAuthenticationCode, error) {
-                            return {
-                                'result':'error',
-                                'msg': error
-                            }
-                        }
-                    })
-                }, function(err){
-                    return{
-                        'result':'error',
-                        'msg': "发送失败"
-                    }
-                });
+//                AV.User.requestMobilePhoneVerify(phone).then(function(){
+//                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
+//                    phoneAuthenticationCode.save({
+//                       "phone": phone
+//                    },{
+//                        success: function(phoneAuthenticationCode) {
+//                            return {
+//                                'result':'success'
+//                            }
+//                        },error: function(phoneAuthenticationCode, error) {
+//                            return {
+//                                'result':'error',
+//                                'msg': error
+//                            }
+//                        }
+//                    })
+//                }, function(err){
+//                    return{
+//                        'result':'error',
+//                        'msg': "发送失败"
+//                    }
+//                });
             }
         },
         error:function(error){
