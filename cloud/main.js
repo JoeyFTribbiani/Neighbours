@@ -18,18 +18,17 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    res.toJSON
-    res.end(JSON.stringify({
+    res.success(JSON.stringify({
         'result':1
     }))
     AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode where phone='+phone+' and createdAt = date(Now())', {
         success: function(result){
             if(result.count > 3){
-                res.end(JSON.stringify({
+                res.success(JSON.stringify({
                     'result':result.count
                 }))
             }else{
-                res.end(JSON.stringify({
+                res.success(JSON.stringify({
                     'result':result.count
                 }))
 //                AV.User.requestMobilePhoneVerify(phone).then(function(){
@@ -57,7 +56,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
             }
         },
         error:function(error){
-            res.end(JSON.stringify({
+            res.success(JSON.stringify({
                 'result':'error',
                 'msg': error
             }))
