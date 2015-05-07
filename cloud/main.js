@@ -19,15 +19,16 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt < date('2015-05-07T23:59:59.999Z')",{
+    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt <= date('"+moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"') and createdAt >= date('"+moment().startOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"')",{
         success: function(result){
-            if(result.count > 3){
-                res.success({
-                    'result':moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+            if(result.count > 2){
+                res.error({
+                    "result":"error",
+                    "msg":"申请次数达到上限"
                 })
             }else{
                 res.success({
-                    'result':moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+                    'result':moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")
                 })
 //                AV.User.requestMobilePhoneVerify(phone).then(function(){
 //                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
