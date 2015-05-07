@@ -19,7 +19,7 @@ AV.Cloud.define('hello', function(request, response) {
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
     var query = new AV.Query(PhoneAuthenticationCode);
-    query.equalTo('createdAt',new Date())
+    query.equalTo('Date(createdAt)',new Date().Format("yyyy-MM-dd"))
     query.equalTo('phone',phone)
     query.count({
         success: function(count){
