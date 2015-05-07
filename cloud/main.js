@@ -19,7 +19,7 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone=? and createdAt<?",[phone,moment().endOf('day')],{
+    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt<date("+moment().endOf('day')+")",{
         success: function(result){
             if(result.count > 3){
                 res.success({
