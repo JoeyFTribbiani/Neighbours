@@ -15,8 +15,7 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    var query = new AV.Query(PhoneAuthenticationCode);
-    AV.Query.doCloudQuery('select count(*) from AddressAuthenticationCode', {
+    AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode', {
         success: function(result){
             if(result.count() > 3){
                 res.render('data', {
