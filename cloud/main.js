@@ -22,43 +22,26 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where phone='"+phone+"' and createdAt <= date('"+moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"') and createdAt >= date('"+moment().startOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"')",{
         success: function(result){
             if(result.count > 2){
-                res.error({
-                    "result":"error",
-                    "msg":"申请次数达到上限"
-                })
+                res.error("申请次数达到上限")
             }else{
-                res.success({
-                    'result':moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")
-                })
-//                AV.User.requestMobilePhoneVerify(phone).then(function(){
-//                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
-//                    phoneAuthenticationCode.save({
-//                       "phone": phone
-//                    },{
-//                        success: function(phoneAuthenticationCode) {
-//                            return {
-//                                'result':'success'
-//                            }
-//                        },error: function(phoneAuthenticationCode, error) {
-//                            return {
-//                                'result':'error',
-//                                'msg': error
-//                            }
-//                        }
-//                    })
-//                }, function(err){
-//                    return{
-//                        'result':'error',
-//                        'msg': "发送失败"
-//                    }
-//                });
+                AV.User.requestMobilePhoneVerify(phone).then(function(){
+                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
+                    phoneAuthenticationCode.save({
+                       "phone": phone
+                    },{
+                        success: function(phoneAuthenticationCode) {
+                            res.success()
+                        },error: function(phoneAuthenticationCode, error) {
+                            res.error(error)
+                        }
+                    })
+                }, function(err){
+                    res.error("发送失败")
+                });
             }
         },
         error:function(error){
-            res.success({
-                'result':'error',
-                'msg': error
-            })
+            res.error(error)
         }
     })
 })
