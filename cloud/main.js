@@ -35,29 +35,29 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                        "phone": phone
                     },{
                         success: function(phoneAuthenticationCode) {
-                            res.render('data', {
+                            return {
                                 'result':'success'
-                            })
+                            }
                         },error: function(phoneAuthenticationCode, error) {
-                            res.render('data', {
+                            return {
                                 'result':'error',
                                 'msg': error
-                            })
+                            }
                         }
                     })
                 }, function(err){
-                    res.render('data', {
+                    return{
                         'result':'error',
                         'msg': "发送失败"
-                    })
+                    }
                 });
             }
         },
         error:function(error){
-            res.render('data', {
+            return{
                 'result':'error',
                 'msg': error
-            })
+            }
         }
     })
 })
