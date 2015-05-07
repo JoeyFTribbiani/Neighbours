@@ -18,12 +18,9 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    var query = new AV.Query(PhoneAuthenticationCode);
-    query.equalTo('Date(createdAt)',new Date().Format("yyyy-MM-dd"))
-    query.equalTo('phone',phone)
-    query.count({
-        success: function(count){
-            if(count > 3){
+    AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode where phone='+phone+' and date(createdAt) = date(Now())', {
+        success: function(result){
+            if(result.count > 3){
                 res.render('data', {
                     'result':'error',
                     'msg': "今日请求次数已达上限"
