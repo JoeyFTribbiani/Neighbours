@@ -23,7 +23,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
         success: function(result){
             if(result.count > 3){
                 res.success({
-                    'result':result.count
+                    'result':moment().endOf('day')
                 })
             }else{
                 res.success({
