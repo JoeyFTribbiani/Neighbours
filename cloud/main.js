@@ -44,6 +44,12 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                     })
                 });
             }
+        },
+        error:function(error){
+            res.render('data', {
+                'result':'error',
+                'msg': error
+            })
         }
     })
 })
