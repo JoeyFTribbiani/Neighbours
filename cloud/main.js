@@ -2,12 +2,12 @@ var app = require("cloud/app.js");
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
 AV.Cloud.define("generateAddressAuthenticationCode",function(req, res) {
-	var address = req.address;
+	var address = req.params.address;
 	var neighbourhood;
 	
 	var query = new AV.Query(AddressAuthenticationCode);
 	if(req.neighbourhood_id){
-    	var neighbourhood_id = req.neighbourhood_id;
+    	var neighbourhood_id = req.params.neighbourhood_id;
     	query.equalTo("neighbourhood_id", neighbourhood_id);
     	query.first({
 		  success: function(object) {
