@@ -17,7 +17,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
     AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode', {
         success: function(result){
-            if(result.count() > 3){
+            if(result.count > 3){
                 res.render('data', {
                     'result':'error',
                     'msg': "今日请求次数已达上限"
