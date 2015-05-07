@@ -32,11 +32,16 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                 AV.User.requestMobilePhoneVerify(phone).then(function(){
                     var phoneAuthenticationCode = new PhoneAuthenticationCode()
                     phoneAuthenticationCode.save({
-                       phone: phone
+                       "phone": phone
                     },{
                         success: function(phoneAuthenticationCode) {
                             res.render('data', {
                                 'result':'success'
+                            })
+                        },error: function(phoneAuthenticationCode, error) {
+                            res.render('data', {
+                                'result':'error',
+                                'msg': error
                             })
                         }
                     })
