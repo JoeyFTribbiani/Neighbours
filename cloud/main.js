@@ -1,9 +1,43 @@
 var app = require("cloud/app.js");
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
+
+var myLog=require('cloud/mylog.js');
+var myUser=require('cloud/myuser.js');
+var myUtil=require('cloud/myutil.js');
+
+var currentUser = AV.User.current();
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
 AV.Cloud.define('hello', function(request, response) {
     response.success('Hello world!');
 });
+
+AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
+    var phone = req.params.phone
+    var query = new AV.Query(PhoneAuthenticationCode);
+    AV.Query.doCloudQuery('select count(*) from AddressAuthenticationCode', {
+        success: function(result){
+            if(result.count() > 3){
+                res.render('data', {
+                    'result':'error',
+                    'msg': "今日请求次数已达上限"
+                })
+            }else{
+                AV.User.requestMobilePhoneVerify(phone).then(function(){
+                    res.render('data', {
+                        'result':'success'
+                    })
+                }, function(err){
+                    res.render('data', {
+                        'result':'error',
+                        'msg': "发送失败"
+                    })
+                });
+            }
+        }
+    })
+})
 
 AV.Cloud.define("generateAddressAuthenticationCode",function(req, res) {
 	var address = req.params.address;

@@ -1,14 +1,6 @@
 // 在 Cloud code 里初始化 Express 框架
 var express = require('express');
 var app = express();
-var crypto = require('crypto');
-var md5 = crypto.createHash('md5');
-
-var myLog=require('cloud/mylog.js');
-var myUser=require('cloud/myuser.js');
-var myUtil=require('cloud/myutil.js');
-
-var currentUser = AV.User.current();
 
 // App 全局配置
 app.set('views','cloud/views');   // 设置模板目录
