@@ -67,7 +67,16 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cloud/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="20" selection-start="86" selection-end="86" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+            <state line="7" column="51" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mylog.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cloud/mylog.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
               <folding />
             </state>
           </provider>
@@ -76,7 +85,7 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cloud/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="27" selection-start="678" selection-end="678" vertical-scroll-proportion="0.15322581" vertical-offset="209" max-vertical-offset="1515">
+            <state line="20" column="113" selection-start="778" selection-end="778" vertical-scroll-proportion="0.18346775" vertical-offset="209" max-vertical-offset="1665">
               <folding />
             </state>
           </provider>
@@ -456,12 +465,12 @@
       <changelist id="ed67e588-6f8f-413c-ad03-b2c78280b2b8" name="Default" comment="" />
       <created>1430979184845</created>
       <updated>1430979184845</updated>
-      <workItem from="1430979186355" duration="2803000" />
+      <workItem from="1430979186355" duration="3236000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2803000" />
+    <option name="totallyTimeSpent" value="3236000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="31" y="57" width="1440" height="873" extended-state="6" />
@@ -520,13 +529,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloud/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="20" selection-start="86" selection-end="86" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cloud/myuser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="9" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.0" vertical-offset="824" max-vertical-offset="1320">
@@ -534,9 +536,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cloud/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="51" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud/mylog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cloud/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="27" selection-start="678" selection-end="678" vertical-scroll-proportion="0.15322581" vertical-offset="209" max-vertical-offset="1515">
+        <state line="20" column="113" selection-start="778" selection-end="778" vertical-scroll-proportion="0.18346775" vertical-offset="209" max-vertical-offset="1665">
           <folding />
         </state>
       </provider>

@@ -6,6 +6,9 @@ var myLog=require('cloud/mylog.js');
 var myUser=require('cloud/myuser.js');
 var myUtil=require('cloud/myutil.js');
 
+var AddressAuthenticationCode = AV.Object.extend("AddressAuthenticationCode")
+var PhoneCode = AV.Object.extend("PhoneCode")
+
 var currentUser = AV.User.current();
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
@@ -15,7 +18,7 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode', {
+    AV.Query.doCloudQuery('select count(*) from PhoneAuthenticationCode where to_days(createdAt) = to_days(now())', {
         success: function(result){
             if(result.count > 3){
                 res.render('data', {
@@ -24,8 +27,15 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                 })
             }else{
                 AV.User.requestMobilePhoneVerify(phone).then(function(){
-                    res.render('data', {
-                        'result':'success'
+                    var phoneCode = new PhoneCode()
+                    phoneCode.save({
+                       phone: phone
+                    },{
+                        success: function(gameScore) {
+                            res.render('data', {
+                                'result':'success'
+                            })
+                        }
                     })
                 }, function(err){
                     res.render('data', {
