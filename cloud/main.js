@@ -27,7 +27,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                 })
             }else{
                 res.success({
-                    'result':result.count
+                    'result':moment().endOf('day')
                 })
 //                AV.User.requestMobilePhoneVerify(phone).then(function(){
 //                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
