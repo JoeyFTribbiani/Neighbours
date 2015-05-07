@@ -7,7 +7,7 @@ var myUser=require('cloud/myuser.js');
 var myUtil=require('cloud/myutil.js');
 
 var AddressAuthenticationCode = AV.Object.extend("AddressAuthenticationCode")
-var PhoneCode = AV.Object.extend("PhoneCode")
+var PhoneAuthenticationCode = AV.Object.extend("PhoneAuthenticationCode")
 
 var currentUser = AV.User.current();
 // Use AV.Cloud.define to define as many cloud functions as you want.
@@ -18,9 +18,12 @@ AV.Cloud.define('hello', function(request, response) {
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
-    AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where DATE_FORMAT(FROM_UNIXTIME(createdAt),'%Y-%m-%d')= DATE_FORMAT(NOW(),'%Y-%m-%d')", {
-        success: function(result){
-            if(result.count > 3){
+    var query = new AV.Query(PhoneAuthenticationCode);
+    query.equal_to('createdAt',new Date())
+    query.equal_to('phone',phone)
+    query.count({
+        success: function(count){
+            if(count > 3){
                 res.render('data', {
                     'result':'error',
                     'msg': "今日请求次数已达上限"
