@@ -80,7 +80,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                 AV.Query.doCloudQuery("select count(*) from PhoneAuthenticationCode where udid='"+udid+"' and createdAt <= date('"+moment().endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"') and createdAt >= date('"+moment().startOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"+"')",{
                     success: function(result){
                         if(result.count > 2){
-                            res.error("申请次数达到上限")
+                            res.error("当日获取验证码次数达到上限")
                         }else{
                             AV.Cloud.requestSmsCode(phone).then(function(){
                                 var phoneAuthenticationCode = new PhoneAuthenticationCode()
