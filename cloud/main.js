@@ -85,7 +85,8 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
                             AV.Cloud.requestSmsCode(phone).then(function(){
                                 var phoneAuthenticationCode = new PhoneAuthenticationCode()
                                 phoneAuthenticationCode.save({
-                                    "phone": phone
+                                    "phone": phone,
+                                    "udid": udid
                                 },{
                                     success: function(phoneAuthenticationCode) {
                                         res.success("获取验证码成功")
