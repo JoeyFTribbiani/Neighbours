@@ -26,6 +26,7 @@ AV.Cloud.define("register",function(req, res) {
     var password = req.params.password
     AV.Cloud.verifySmsCode(code,phone,{
         success:function(){
+            res.error("验证码错误")
             var user = new AV.User();
             user.set("username", phone);
             user.set("password", password);
