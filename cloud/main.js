@@ -34,7 +34,18 @@ AV.Cloud.define("register",function(req, res) {
         user.signUp(null, {
             success: function(user) {
                 // Hooray! Let them use the app now.
-                res.success(user)
+                user.save({
+                    "mobilePhoneNumber":phone
+                }, {
+                    success: function(user) {
+                        // The save was successful.
+                        res.success(user)
+                    },
+                    error: function(user, error) {
+                        // The save failed.  Error is an instance of AV.Error.
+                        res.error(error)
+                    }
+                })
             },
             error: function(user, error) {
                 // Show the error message somewhere and let the user try again.
