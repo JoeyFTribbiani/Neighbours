@@ -35,12 +35,20 @@ AV.Cloud.define("register",function(req, res) {
             success: function(user) {
                 // Hooray! Let them use the app now.
                 user.save({
-                    "mobilePhoneNumber":phone,
-                    "mobilePhoneVerified":"true"
+                    "mobilePhoneNumber":phone
                 }, {
                     success: function(user) {
                         // The save was successful.
-                        res.success(user)
+                        user.save({
+                            "mobilePhoneVerified":"true"
+                        },{
+                            success:function(user){
+                                res.success(user)
+                            },
+                            error:function(){
+                                res.error(error)
+                            }
+                        })
                     },
                     error: function(user, error) {
                         // The save failed.  Error is an instance of AV.Error.
