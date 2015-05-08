@@ -76,7 +76,7 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
             if(result.count > 2){
                 res.error("申请次数达到上限")
             }else{
-                AV.Cloud.requestMobilePhoneVerify(phone).then(function(){
+                AV.Cloud.requestSmsCode(phone).then(function(){
                     var phoneAuthenticationCode = new PhoneAuthenticationCode()
                     phoneAuthenticationCode.save({
                        "phone": phone
