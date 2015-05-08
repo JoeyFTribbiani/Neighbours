@@ -24,50 +24,41 @@ AV.Cloud.define("register",function(req, res) {
     var birthday = req.params.birthday
     var nickname = req.params.nickname
     var password = req.params.password
-    if(verifyPhone(code,phone)){
-        var user = new AV.User();
-        user.set("username", phone);
-        user.set("password", password);
-        user.set("birthday", birthday);
-        user.set("nickname", nickname);
-        user.set("gender", gender);
-        user.signUp(null, {
-            success: function(user) {
-                // Hooray! Let them use the app now.
-                user.save({
-                    "mobilePhoneNumber":phone
-                }, {
-                    success: function(user) {
-                        // The save was successful.
-                        res.success(user)
-                    },
-                    error: function(user, error) {
-                        // The save failed.  Error is an instance of AV.Error.
-                        res.error(error)
-                    }
-                })
-            },
-            error: function(user, error) {
-                // Show the error message somewhere and let the user try again.
-                res.error("用户已注册")
-            }
-        });
-    }else{
-        res.error("验证码错误")
-    }
-});
-
-function verifyPhone(code,phone){
     AV.Cloud.verifySmsCode(code,phone,{
         success:function(){
-            return true
+            var user = new AV.User();
+            user.set("username", phone);
+            user.set("password", password);
+            user.set("birthday", birthday);
+            user.set("nickname", nickname);
+            user.set("gender", gender);
+            user.signUp(null, {
+                success: function(user) {
+                    // Hooray! Let them use the app now.
+                    user.save({
+                        "mobilePhoneNumber":phone
+                    }, {
+                        success: function(user) {
+                            // The save was successful.
+                            res.success(user)
+                        },
+                        error: function(user, error) {
+                            // The save failed.  Error is an instance of AV.Error.
+                            res.error(error)
+                        }
+                    })
+                },
+                error: function(user, error) {
+                    // Show the error message somewhere and let the user try again.
+                    res.error("用户已注册")
+                }
+            });
         },
         error:function(){
-            return false
+            res.error("验证码错误")
         }
     })
-};
-
+});
 
 AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
     var phone = req.params.phone
