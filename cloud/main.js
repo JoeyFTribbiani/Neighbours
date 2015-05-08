@@ -36,7 +36,7 @@ AV.Cloud.define("register",function(req, res) {
                 // Hooray! Let them use the app now.
                 user.save({
                     "mobilePhoneNumber":phone,
-                    "mobilePhoneVerified":true
+                    "mobilePhoneVerified":"true"
                 }, {
                     success: function(user) {
                         // The save was successful.
