@@ -24,7 +24,7 @@ AV.Cloud.define("register",function(req, res) {
     var birthday = req.params.birthday
     var nickname = req.params.nickname
     var password = req.params.password
-    if(verifyPhone(phone,code)){
+    if(verifyPhone(code,phone)){
         var user = new AV.User();
         user.set("username", phone);
         user.set("password", password);
@@ -57,8 +57,8 @@ AV.Cloud.define("register",function(req, res) {
     }
 });
 
-function verifyPhone(phone,code){
-    AV.Cloud.verifySmsCode(phone,code,{
+function verifyPhone(code,phone){
+    AV.Cloud.verifySmsCode(code,phone,{
         success:function(){
             return true
         },
