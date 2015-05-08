@@ -49,7 +49,7 @@ AV.Cloud.define("register",function(req, res) {
             },
             error: function(user, error) {
                 // Show the error message somewhere and let the user try again.
-                res.error("用户已注册")
+                res.error(error)
             }
         });
     },function(){
