@@ -26,16 +26,17 @@ AV.Cloud.define("register",function(req, res) {
     var password = req.params.password
     AV.Cloud.verifySmsCode(code,phone).then(function(){
         var user = new AV.User();
-        user.set("username", "my name");
+        user.set("username", phone);
         user.set("password", password);
-        //user.set("birthday", birthday);
+        user.set("birthday", birthday);
         user.set("nickname", nickname);
         user.set("gender", gender);
         user.signUp(null, {
             success: function(user) {
                 // Hooray! Let them use the app now.
                 user.save({
-                    "mobilePhoneNumber":phone
+                    "mobilePhoneNumber":phone,
+                    "mobilePhoneVerified":true
                 }, {
                     success: function(user) {
                         // The save was successful.
