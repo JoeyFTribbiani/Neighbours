@@ -76,20 +76,23 @@ AV.Cloud.define("getPhoneAuthenticationCode",function(req, res) {
             if(result.count > 2){
                 res.error("申请次数达到上限")
             }else{
-                AV.Cloud.requestSmsCode("13701777532").then(function(){
-                    var phoneAuthenticationCode = new PhoneAuthenticationCode()
-                    phoneAuthenticationCode.save({
-                       "phone": phone
-                    },{
-                        success: function(phoneAuthenticationCode) {
-                            res.success()
-                        },error: function(phoneAuthenticationCode, error) {
-                            res.error(error)
-                        }
-                    })
-                }, function(err){
-                    res.error("发送失败")
-                });
+                AV.Cloud.requestSmsCode("13701777532",{
+                    success:function(){
+                        var phoneAuthenticationCode = new PhoneAuthenticationCode()
+                        phoneAuthenticationCode.save({
+                            "phone": phone
+                        },{
+                            success: function(phoneAuthenticationCode) {
+                                res.success()
+                            },error: function(phoneAuthenticationCode, error) {
+                                res.error(error)
+                            }
+                        })
+                    },
+                    error:function(){
+                        res.error("发送失败")
+                    }
+                })
             }
         },
         error:function(error){
