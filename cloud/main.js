@@ -28,7 +28,7 @@ AV.Cloud.define("register",function(req, res) {
         var user = new AV.User();
         user.set("username", phone);
         user.set("password", password);
-        user.set("birthday", birthday);
+        //user.set("birthday", birthday);
         user.set("nickname", nickname);
         user.set("gender", gender);
         user.signUp(null, {
